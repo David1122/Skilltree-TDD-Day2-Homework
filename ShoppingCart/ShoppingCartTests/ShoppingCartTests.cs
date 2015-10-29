@@ -103,5 +103,24 @@ namespace ShoppingCartTests
 
             Assert.AreEqual(expected, actual);
         }
+
+        [TestMethod]
+        public void 一二集各買了一本_第三集買了兩本_價格應為100乘以3乘以0點9加100等於370()
+        {
+            var bookList = new List<Book>();
+            bookList.Add(new Book(Book.Episode.Episode1, 1));
+            bookList.Add(new Book(Book.Episode.Episode2, 1));
+            bookList.Add(new Book(Book.Episode.Episode3, 2));
+            bookList.Add(new Book(Book.Episode.Episode4, 0));
+            bookList.Add(new Book(Book.Episode.Episode5, 0));
+
+            var expected = 375;
+
+            IShoppingCart target = Substitute.For<Day2Homework.ShoppingCart>(bookList);
+
+            var actual = target.CalculateTotal();
+
+            Assert.AreEqual(expected, actual);
+        }
     }
 }
