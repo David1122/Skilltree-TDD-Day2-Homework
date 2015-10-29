@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Day2Homework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using ShoppingCart;
+using NSubstitute;
 
 namespace ShoppingCartTests
 {
@@ -16,9 +18,11 @@ namespace ShoppingCartTests
             bookList.Add(new Book(Book.Episode.Episode3, 0));
             bookList.Add(new Book(Book.Episode.Episode4, 0));
             bookList.Add(new Book(Book.Episode.Episode5, 0));
-            var expected = 100;
-            var target = new ShoppingCart(bookList);
 
+            var expected = 100;
+
+            IShoppingCart target = Substitute.For<Day2Homework.ShoppingCart>(bookList);
+            
             var actual = target.CalculateTotal();
 
             Assert.AreEqual(expected, actual);
@@ -33,8 +37,10 @@ namespace ShoppingCartTests
             bookList.Add(new Book(Book.Episode.Episode3, 0));
             bookList.Add(new Book(Book.Episode.Episode4, 0));
             bookList.Add(new Book(Book.Episode.Episode5, 0));
+
             var expected = 190;
-            var target = new ShoppingCart(bookList);
+
+            IShoppingCart target = Substitute.For<Day2Homework.ShoppingCart>(bookList);
 
             var actual = target.CalculateTotal();
 

@@ -1,12 +1,10 @@
-﻿using System;
+﻿using ShoppingCart;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Day2Homework
 {
-    public class ShoppingCart
+    public class ShoppingCart : IShoppingCart
     {
         public List<Book> shoppingCart { get; set; }
 
@@ -22,16 +20,29 @@ namespace Day2Homework
 
             foreach (var book in shoppingCart.Where(p => p.qty > 0))
             {
-                if (!episodeType.Contains(book.episode))
-                    episodeType.Add(book.episode);
+                episodeType = CountEpisodeType(episodeType, book).ToList();
 
-                total += book.qty*book.unitPrice;
+                total += book.qty * book.unitPrice;
 
-                if (episodeType.Count > 1)
-                    total = (int)(total*0.95);
+                total = SetDiscount(episodeType, total);
             }
 
             return total;
+        }
+
+        private int SetDiscount(List<Book.Episode> episodeType, int total)
+        {
+            if (episodeType.Count > 1)
+                total = (int) (total*0.95);
+            return total;
+        }
+
+        private IEnumerable<Book.Episode> CountEpisodeType(ICollection<Book.Episode> episodeType, Book book)
+        {
+            if (!episodeType.Contains(book.episode))
+                episodeType.Add(book.episode);
+
+            return episodeType;
         }
     }
 
@@ -56,6 +67,6 @@ namespace Day2Homework
         {
             this.episode = episode;
             this.qty = qty;
-        } 
+        }
     }
 }
