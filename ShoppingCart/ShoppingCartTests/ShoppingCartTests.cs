@@ -65,5 +65,24 @@ namespace ShoppingCartTests
 
             Assert.AreEqual(expected, actual);
         }
+
+        [TestMethod]
+        public void 一二三四集各買了一本_價格應為100乘以4乘以0點8等於320()
+        {
+            var bookList = new List<Book>();
+            bookList.Add(new Book(Book.Episode.Episode1, 1));
+            bookList.Add(new Book(Book.Episode.Episode2, 1));
+            bookList.Add(new Book(Book.Episode.Episode3, 1));
+            bookList.Add(new Book(Book.Episode.Episode4, 1));
+            bookList.Add(new Book(Book.Episode.Episode5, 0));
+
+            var expected = 320;
+
+            IShoppingCart target = Substitute.For<Day2Homework.ShoppingCart>(bookList);
+
+            var actual = target.CalculateTotal();
+
+            Assert.AreEqual(expected, actual);
+        }
     }
 }
