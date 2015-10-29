@@ -37,7 +37,9 @@ namespace Day2Homework
             else if (episodeType.Count == 3)
                 total = (int)(total * 0.90);
             else if (episodeType.Count == 2)
-                total = (int)(total * 0.95);
+                total = (int) (total*0.95);
+            else
+                total = (int) (total*0.75);
 
             return total;
         }
