@@ -114,7 +114,7 @@ namespace ShoppingCartTests
             bookList.Add(new Book(Book.Episode.Episode4, 0));
             bookList.Add(new Book(Book.Episode.Episode5, 0));
 
-            var expected = 375;
+            var expected = 370;
 
             IShoppingCart target = Substitute.For<Day2Homework.ShoppingCart>(bookList);
 

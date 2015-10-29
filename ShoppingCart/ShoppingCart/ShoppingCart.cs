@@ -25,23 +25,29 @@ namespace Day2Homework
                 total += book.qty * book.unitPrice;
             }
 
-            total = SetDiscount(episodeType, total);
+            total = SetDiscount(episodeType, total, shoppingCart.Where(p => p.qty > 0).Sum(p => p.qty));
 
             return total;
         }
 
-        private int SetDiscount(List<Book.Episode> episodeType, int total)
+        private int SetDiscount(List<Book.Episode> episodeType, int total, int bookCount)
         {
-            if (episodeType.Count == 4)
-                total = (int)(total * 0.80);
-            else if (episodeType.Count == 3)
-                total = (int)(total * 0.90);
-            else if (episodeType.Count == 2)
-                total = (int) (total*0.95);
-            else
-                total = (int) (total*0.75);
+            var unitPrice = shoppingCart.FirstOrDefault().unitPrice;
+            var noDiscountBooks = bookCount - episodeType.Count;
+            var discountTotal = total - noDiscountBooks*unitPrice;
 
-            return total;
+            if (episodeType.Count == 4)
+                discountTotal = (int)(discountTotal * 0.80);
+            else if (episodeType.Count == 3)
+                discountTotal = (int)(discountTotal * 0.90);
+            else if (episodeType.Count == 2)
+                discountTotal = (int)(discountTotal * 0.95);
+            else if (episodeType.Count == 5)
+                discountTotal = (int)(discountTotal * 0.75);
+
+            discountTotal += noDiscountBooks*unitPrice;
+
+            return discountTotal;
         }
 
         private IEnumerable<Book.Episode> CountEpisodeType(ICollection<Book.Episode> episodeType, Book book)
