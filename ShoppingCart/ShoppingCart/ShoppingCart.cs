@@ -17,7 +17,19 @@ namespace Day2Homework
 
         public int CalculateTotal()
         {
-            var total = shoppingCart.Where(p => p.qty > 0).Sum(book => book.qty*book.unitPrice);
+            var total = 0;
+            var episodeType = new List<Book.Episode>();
+
+            foreach (var book in shoppingCart.Where(p => p.qty > 0))
+            {
+                if (!episodeType.Contains(book.episode))
+                    episodeType.Add(book.episode);
+
+                total += book.qty*book.unitPrice;
+
+                if (episodeType.Count > 1)
+                    total = (int)(total*0.95);
+            }
 
             return total;
         }
