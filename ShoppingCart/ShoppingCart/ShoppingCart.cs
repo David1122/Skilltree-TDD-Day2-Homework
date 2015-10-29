@@ -23,17 +23,23 @@ namespace Day2Homework
                 episodeType = CountEpisodeType(episodeType, book).ToList();
 
                 total += book.qty * book.unitPrice;
-
-                total = SetDiscount(episodeType, total);
             }
+
+            total = SetDiscount(episodeType, total);
 
             return total;
         }
 
         private int SetDiscount(List<Book.Episode> episodeType, int total)
         {
-            if (episodeType.Count > 1)
-                total = (int) (total*0.95);
+            if (episodeType.Count > 2)
+                total = (int)(total * 0.90);
+            else
+            {
+                if (episodeType.Count > 1)
+                    total = (int)(total * 0.95);
+            }
+
             return total;
         }
 
