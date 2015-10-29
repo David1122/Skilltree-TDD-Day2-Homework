@@ -32,13 +32,12 @@ namespace Day2Homework
 
         private int SetDiscount(List<Book.Episode> episodeType, int total)
         {
-            if (episodeType.Count > 2)
+            if (episodeType.Count == 4)
+                total = (int)(total * 0.80);
+            else if (episodeType.Count == 3)
                 total = (int)(total * 0.90);
-            else
-            {
-                if (episodeType.Count > 1)
-                    total = (int)(total * 0.95);
-            }
+            else if (episodeType.Count == 2)
+                total = (int)(total * 0.95);
 
             return total;
         }
