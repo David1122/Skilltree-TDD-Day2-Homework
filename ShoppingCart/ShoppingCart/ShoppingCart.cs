@@ -8,14 +8,18 @@ namespace Day2Homework
 {
     public class ShoppingCart
     {
+        public List<Book> shoppingCart { get; set; }
+
         public ShoppingCart(List<Book> shoppingCart)
         {
-            
+            this.shoppingCart = shoppingCart;
         }
 
-        public object CalculateTotal()
+        public int CalculateTotal()
         {
-            throw new NotImplementedException();
+            var total = shoppingCart.Where(p => p.qty > 0).Sum(book => book.qty*book.unitPrice);
+
+            return total;
         }
     }
 
